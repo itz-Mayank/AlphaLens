@@ -1,0 +1,147 @@
+name: alphalens
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-alphalens}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme_local_dev_only}
+      POSTGRES_DB: ${POSTGRES_DB:-alphalens}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-alphalens}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+      target: dev
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-alphalens}:${POSTGRES_PASSWORD:-changeme_local_dev_only}@postgres:5432/${POSTGRES_DB:-alphalens}
+      REDIS_URL: redis://redis:6379/0
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../backend:/app
+      - ../ml:/ml
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    # `pip install -e /ml` runs at container start, not build time, because
+    # `/ml` only exists once the bind mount above is live — see
+    # backend/Dockerfile's comment. Idempotent and fast (editable install,
+    # no rebuild) on every restart/reload.
+    command: sh -c "pip install -e /ml && alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+
+  worker:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+      target: dev
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-alphalens}:${POSTGRES_PASSWORD:-changeme_local_dev_only}@postgres:5432/${POSTGRES_DB:-alphalens}
+      REDIS_URL: redis://redis:6379/0
+    volumes:
+      - ../backend:/app
+      - ../ml:/ml
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: sh -c "pip install -e /ml && celery -A app.workers.celery_app worker --loglevel=info --concurrency=2"
+    # Overrides the backend image's HEALTHCHECK (curl localhost:8000/health)
+    # — inherited from the same Dockerfile, but meaningless here: a worker
+    # runs no HTTP server, so that check fails 100% of the time and reports
+    # a working worker as permanently "unhealthy". `inspect ping` is the
+    # actual liveness check for a Celery worker.
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A app.workers.celery_app inspect ping || exit 1"]
+      interval: 15s
+      timeout: 10s
+      start_period: 15s
+      retries: 5
+
+  beat:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+      target: dev
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-alphalens}:${POSTGRES_PASSWORD:-changeme_local_dev_only}@postgres:5432/${POSTGRES_DB:-alphalens}
+      REDIS_URL: redis://redis:6379/0
+    volumes:
+      - ../backend:/app
+      - ../ml:/ml
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      worker:
+        condition: service_started
+    # Phase 9's alert-evaluation schedule (`app/workers/celery_app.py`'s
+    # `beat_schedule`) — a separate, single Beat process, same image as
+    # `worker`, no new queueing system. Only ever enqueues `alerts.evaluate`
+    # onto the same broker `worker` already consumes from.
+    command: sh -c "pip install -e /ml && celery -A app.workers.celery_app beat --loglevel=info"
+    # A bare `CMD` healthcheck (no shell operators) since Beat exposes no
+    # `inspect`-style liveness command the way a worker does; this just
+    # confirms the process is still running.
+    healthcheck:
+      test: ["CMD", "pgrep", "-f", "celery.*beat"]
+      interval: 15s
+      timeout: 10s
+      start_period: 15s
+      retries: 5
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+      target: base
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    ports:
+      - "5173:5173"
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+volumes:
+  postgres-data:
+  redis-data:

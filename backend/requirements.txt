@@ -1,0 +1,50 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.13.5
+pydantic-settings==2.7.1
+sqlalchemy==2.0.36
+alembic==1.14.0
+psycopg[binary]==3.2.3
+asyncpg==0.30.0
+redis==5.2.1
+celery==5.4.0
+python-jose[cryptography]==3.3.0
+passlib[argon2]==1.7.4
+python-multipart==0.0.20
+email-validator==2.2.0
+slowapi==0.1.9
+structlog==24.4.0
+httpx==0.28.1
+python-dotenv==1.0.1
+
+# ML inference/explainability (Phase 6) — the runtime subset `ml.inference`/
+# `ml.explainability` actually need to serve the registered XGBoost models.
+# Pinned identically to ml/requirements.txt so both packages resolve the
+# same versions.
+numpy==2.2.1
+pandas==2.2.3
+scikit-learn==1.6.0
+xgboost==2.1.4
+shap==0.46.0
+# Financial sentiment (Phase 7) — `ml.nlp.sentiment` (FinBERT) is imported
+# by `app/services/news_sentiment_service.py`. This is the one place ADR-022's
+# "no torch in the backend" no longer holds: FinBERT is a transformer
+# model, not XGBoost, so serving it requires torch regardless of how
+# XGBoost inference itself stays torch-free.
+torch==2.5.1
+transformers==4.47.1
+# The `ml` package itself is installed separately as an editable local
+# package (`pip install -e ../ml` locally; `pip install -e /ml` at
+# container start in Docker, once `../ml` is bind-mounted at `/ml` — see
+# infra/docker-compose.yml) rather than listed here, since it isn't
+# published to a package index.
+
+# Research agent (Phase 8) — app/agent/llm_provider.py's real
+# AnthropicLLMProvider implementation.
+anthropic==0.69.0
+# Research agent, multi-provider (Phase 8.5) — GroqLLMProvider/
+# GeminiLLMProvider in the same module. google-genai>=2.12.5 requires
+# pydantic>=2.12.5, which is why pydantic is pinned above 2.10.4 as of
+# this phase (see docs/decisions.md's provider-abstraction ADR).
+groq==1.7.0
+google-genai==2.23.0

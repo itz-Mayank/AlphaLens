@@ -1,0 +1,29 @@
+{
+  "seed": 42,
+  "tickers": [
+    "AAPL",
+    "MSFT",
+    "AMZN",
+    "GOOGL",
+    "JNJ",
+    "JPM",
+    "FB",
+    "NVDA",
+    "DIS",
+    "KO",
+    "PG"
+  ],
+  "feature_set_version": "fs_v1",
+  "target": {
+    "horizon_days": 5,
+    "bearish_threshold": -0.02,
+    "bullish_threshold": 0.02
+  },
+  "split": {
+    "train_end": "2016-06-30",
+    "validation_end": "2017-06-30"
+  },
+  "sequence": {
+    "sequence_length": 60
+  }
+}

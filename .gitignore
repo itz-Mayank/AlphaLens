@@ -1,0 +1,59 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+htmlcov/
+.coverage
+.coverage.*
+
+# --- Node / frontend ---
+node_modules/
+dist/
+.vite/
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+
+# --- Env / secrets ---
+.env
+.env.*
+!.env.example
+!backend/.env.test
+
+# --- Data / ML artifacts ---
+backend/app/providers/mock/seed_dataset/*.parquet
+data/model_artifacts/
+*.pt
+*.pkl
+*.onnx
+*.npz
+
+# ml/experiments/ (registry.json + trained model artifacts) IS committed,
+# despite the patterns above — it's small (~1.4MB total) and the deployed
+# backend needs these files at runtime to serve real forecasts/SHAP/
+# backtests (see ml/registry, ML_REGISTRY_PATH). Directory must be
+# un-ignored explicitly before the file-level re-includes below can apply
+# (git can't re-include a file whose parent directory is excluded).
+!ml/experiments/
+!ml/experiments/**
+
+# --- Docker / infra ---
+infra/postgres-data/
+infra/redis-data/
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- Logs ---
+*.log
+logs/

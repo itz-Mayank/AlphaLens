@@ -1,0 +1,849 @@
+{
+  "thresholds": {
+    "bearish": -0.012884645556366732,
+    "bullish": 0.02141373262314889
+  },
+  "models": {
+    "naive_zero_return": {
+      "regression": {
+        "mae": 0.020901611464730276,
+        "rmse": 0.02903199084222395,
+        "r2": -0.04373128563938633
+      },
+      "financial": {
+        "per_ticker": {
+          "AAPL": {
+            "cumulative_return": 0.0,
+            "annualized_return": 0.0,
+            "annualized_volatility": 0.0,
+            "sharpe_ratio": null,
+            "sortino_ratio": null,
+            "max_drawdown": 0.0,
+            "win_rate": null,
+            "profit_factor": null,
+            "num_trades": 0,
+            "benchmark_cumulative_return": 0.16919860627177785
+          },
+          "AMZN": {
+            "cumulative_return": 0.0,
+            "annualized_return": 0.0,
+            "annualized_volatility": 0.0,
+            "sharpe_ratio": null,
+            "sortino_ratio": null,
+            "max_drawdown": 0.0,
+            "win_rate": null,
+            "profit_factor": null,
+            "num_trades": 0,
+            "benchmark_cumulative_return": 0.45754252039511134
+          },
+          "DIS": {
+            "cumulative_return": 0.0,
+            "annualized_return": 0.0,
+            "annualized_volatility": 0.0,
+            "sharpe_ratio": null,
+            "sortino_ratio": null,
+            "max_drawdown": 0.0,
+            "win_rate": null,
+            "profit_factor": null,
+            "num_trades": 0,
+            "benchmark_cumulative_return": 0.02819653824678925
+          },
+          "FB": {
+            "cumulative_return": 0.0,
+            "annualized_return": 0.0,
+            "annualized_volatility": 0.0,
+            "sharpe_ratio": null,
+            "sortino_ratio": null,
+            "max_drawdown": 0.0,
+            "win_rate": null,
+            "profit_factor": null,
+            "num_trades": 0,
+            "benchmark_cumulative_return": 0.30088257090884674
+          },
+          "GOOGL": {
+            "cumulative_return": 0.0,
+            "annualized_return": 0.0,
+            "annualized_volatility": 0.0,
+            "sharpe_ratio": null,
+            "sortino_ratio": null,
+            "max_drawdown": 0.0,
+            "win_rate": null,
+            "profit_factor": null,
+            "num_trades": 0,
+            "benchmark_cumulative_return": 0.285091249211493
+          },
+          "JNJ": {
+            "cumulative_return": 0.0,
+            "annualized_return": 0.0,
+            "annualized_volatility": 0.0,
+            "sharpe_ratio": null,
+            "sortino_ratio": null,
+            "max_drawdown": 0.0,
+            "win_rate": null,
+            "profit_factor": null,
+            "num_trades": 0,
+            "benchmark_cumulative_return": 0.053574115876599215
+          },
+          "JPM": {
+            "cumulative_return": 0.0,
+            "annualized_return": 0.0,
+            "annualized_volatility": 0.0,
+            "sharpe_ratio": null,
+            "sortino_ratio": null,
+            "max_drawdown": 0.0,
+            "win_rate": null,
+            "profit_factor": null,
+            "num_trades": 0,
+            "benchmark_cumulative_return": 0.2600539083557949
+          },
+          "KO": {
+            "cumulative_return": 0.0,
+            "annualized_return": 0.0,
+            "annualized_volatility": 0.0,
+            "sharpe_ratio": null,
+            "sortino_ratio": null,
+            "max_drawdown": 0.0,
+            "win_rate": null,
+            "profit_factor": null,
+            "num_trades": 0,
+            "benchmark_cumulative_return": 0.06009830205540667
+          },
+          "MSFT": {
+            "cumulative_return": 0.0,
+            "annualized_return": 0.0,
+            "annualized_volatility": 0.0,
+            "sharpe_ratio": null,
+            "sortino_ratio": null,
+            "max_drawdown": 0.0,
+            "win_rate": null,
+            "profit_factor": null,
+            "num_trades": 0,
+            "benchmark_cumulative_return": 0.3827196714097092
+          },
+          "NVDA": {
+            "cumulative_return": 0.0,
+            "annualized_return": 0.0,
+            "annualized_volatility": 0.0,
+            "sharpe_ratio": null,
+            "sortino_ratio": null,
+            "max_drawdown": 0.0,
+            "win_rate": null,
+            "profit_factor": null,
+            "num_trades": 0,
+            "benchmark_cumulative_return": 0.7261178497093232
+          },
+          "PG": {
+            "cumulative_return": 0.0,
+            "annualized_return": 0.0,
+            "annualized_volatility": 0.0,
+            "sharpe_ratio": null,
+            "sortino_ratio": null,
+            "max_drawdown": 0.0,
+            "win_rate": null,
+            "profit_factor": null,
+            "num_trades": 0,
+            "benchmark_cumulative_return": -0.021540916343743666
+          }
+        },
+        "aggregate": {
+          "cumulative_return_mean": 0.0,
+          "annualized_return_mean": 0.0,
+          "sharpe_ratio_mean": null,
+          "sortino_ratio_mean": null,
+          "max_drawdown_mean": 0.0,
+          "win_rate_mean": null,
+          "profit_factor_mean": null,
+          "num_trades_total": 0,
+          "benchmark_cumulative_return_mean": 0.24563040146337342,
+          "num_tickers_evaluated": 11
+        }
+      }
+    },
+    "previous_return_baseline": {
+      "regression": {
+        "mae": 0.02243006507255236,
+        "rmse": 0.031201135793092475,
+        "r2": -0.20552403196057023
+      },
+      "financial": {
+        "per_ticker": {
+          "AAPL": {
+            "cumulative_return": 0.026860851355624105,
+            "annualized_return": 0.046487791307999515,
+            "annualized_volatility": 0.12568816846153977,
+            "sharpe_ratio": 0.4239087179959722,
+            "sortino_ratio": 0.5537950001270855,
+            "max_drawdown": -0.06327502938752683,
+            "win_rate": 0.3611111111111111,
+            "profit_factor": 1.4111845247871428,
+            "num_trades": 36,
+            "benchmark_cumulative_return": 0.16919860627177785
+          },
+          "AMZN": {
+            "cumulative_return": 0.30459171820434694,
+            "annualized_return": 0.5774532117039475,
+            "annualized_volatility": 0.1303766369042957,
+            "sharpe_ratio": 3.564016630933155,
+            "sortino_ratio": 4.635708690270491,
+            "max_drawdown": -0.04196734418184711,
+            "win_rate": 0.6206896551724138,
+            "profit_factor": 4.838420366529005,
+            "num_trades": 29,
+            "benchmark_cumulative_return": 0.45754252039511134
+          },
+          "DIS": {
+            "cumulative_return": -0.04035204984748708,
+            "annualized_return": -0.06817414980997105,
+            "annualized_volatility": 0.14210117874090317,
+            "sharpe_ratio": -0.42644354714884364,
+            "sortino_ratio": -0.5503132180459928,
+            "max_drawdown": -0.1163567234673899,
+            "win_rate": 0.39473684210526316,
+            "profit_factor": 1.0046123107754128,
+            "num_trades": 38,
+            "benchmark_cumulative_return": 0.02819653824678925
+          },
+          "FB": {
+            "cumulative_return": 0.11032815275718022,
+            "annualized_return": 0.19651074434672022,
+            "annualized_volatility": 0.14069207074341064,
+            "sharpe_ratio": 1.345052963770555,
+            "sortino_ratio": 2.2451923390344746,
+            "max_drawdown": -0.06158361819834535,
+            "win_rate": 0.42105263157894735,
+            "profit_factor": 1.8812524822672811,
+            "num_trades": 38,
+            "benchmark_cumulative_return": 0.30088257090884674
+          },
+          "GOOGL": {
+            "cumulative_return": 0.07484142141088856,
+            "annualized_return": 0.13170503443539205,
+            "annualized_volatility": 0.10683593642196446,
+            "sharpe_ratio": 1.2114673136177785,
+            "sortino_ratio": 1.5156052338693544,
+            "max_drawdown": -0.09447610333187384,
+            "win_rate": 0.4411764705882353,
+            "profit_factor": 1.7423238526752,
+            "num_trades": 34,
+            "benchmark_cumulative_return": 0.285091249211493
+          },
+          "JNJ": {
+            "cumulative_return": -0.06616461503821092,
+            "annualized_return": -0.1107275355762839,
+            "annualized_volatility": 0.0980118255187989,
+            "sharpe_ratio": -1.1479983336340565,
+            "sortino_ratio": -1.246292229793384,
+            "max_drawdown": -0.08204704918229888,
+            "win_rate": 0.35135135135135137,
+            "profit_factor": 0.8179488072700167,
+            "num_trades": 37,
+            "benchmark_cumulative_return": 0.053574115876599215
+          },
+          "JPM": {
+            "cumulative_return": 0.01952613706019224,
+            "annualized_return": 0.03370637705250035,
+            "annualized_volatility": 0.09603384736872414,
+            "sharpe_ratio": 0.3928350930233192,
+            "sortino_ratio": 0.5603957183878692,
+            "max_drawdown": -0.08349909319575421,
+            "win_rate": 0.39473684210526316,
+            "profit_factor": 1.4543432894401822,
+            "num_trades": 38,
+            "benchmark_cumulative_return": 0.2600539083557949
+          },
+          "KO": {
+            "cumulative_return": -0.03480096265176991,
+            "annualized_return": -0.05891481350700922,
+            "annualized_volatility": 0.0715999364086817,
+            "sharpe_ratio": -0.81236113652636,
+            "sortino_ratio": -0.9726246904840467,
+            "max_drawdown": -0.06059912124133282,
+            "win_rate": 0.2571428571428571,
+            "profit_factor": 0.9983223320274592,
+            "num_trades": 35,
+            "benchmark_cumulative_return": 0.06009830205540667
+          },
+          "MSFT": {
+            "cumulative_return": 0.030677758032641833,
+            "annualized_return": 0.053164974118095065,
+            "annualized_volatility": 0.13794643604714743,
+            "sharpe_ratio": 0.44324306047525763,
+            "sortino_ratio": 0.6832812369372665,
+            "max_drawdown": -0.08101589449666335,
+            "win_rate": 0.4,
+            "profit_factor": 1.4033739258283995,
+            "num_trades": 40,
+            "benchmark_cumulative_return": 0.3827196714097092
+          },
+          "NVDA": {
+            "cumulative_return": 0.22511522954184993,
+            "annualized_return": 0.4163169943650349,
+            "annualized_volatility": 0.2268249483869832,
+            "sharpe_ratio": 1.647057084052363,
+            "sortino_ratio": 2.7174767723626316,
+            "max_drawdown": -0.13912020246533785,
+            "win_rate": 0.40476190476190477,
+            "profit_factor": 1.7945871404375096,
+            "num_trades": 42,
+            "benchmark_cumulative_return": 0.7261178497093232
+          },
+          "PG": {
+            "cumulative_return": -0.04766702265617406,
+            "annualized_return": -0.08031737260264216,
+            "annualized_volatility": 0.07759431712723466,
+            "sharpe_ratio": -1.040110907543808,
+            "sortino_ratio": -1.121421702276069,
+            "max_drawdown": -0.05573163904464584,
+            "win_rate": 0.4166666666666667,
+            "profit_factor": 0.9094325072240302,
+            "num_trades": 36,
+            "benchmark_cumulative_return": -0.021540916343743666
+          }
+        },
+        "aggregate": {
+          "cumulative_return_mean": 0.05481423801537108,
+          "annualized_return_mean": 0.10338284143943484,
+          "sharpe_ratio_mean": 0.5091515399104849,
+          "sortino_ratio_mean": 0.820073013671789,
+          "max_drawdown_mean": -0.07997016529027418,
+          "win_rate_mean": 0.40576603023491037,
+          "profit_factor_mean": 1.6596183217510578,
+          "num_trades_total": 403,
+          "benchmark_cumulative_return_mean": 0.24563040146337342,
+          "num_tickers_evaluated": 11
+        }
+      }
+    },
+    "majority_class_baseline": {
+      "classification": {
+        "accuracy": 0.5708101422387136,
+        "precision_macro": 0.19027004741290454,
+        "recall_macro": 0.3333333333333333,
+        "f1_macro": 0.24225721784776902,
+        "roc_auc_ovr": null,
+        "pr_auc_macro": null,
+        "confusion_matrix": [
+          [
+            0,
+            321,
+            0
+          ],
+          [
+            0,
+            923,
+            0
+          ],
+          [
+            0,
+            373,
+            0
+          ]
+        ],
+        "class_names": [
+          "Bearish",
+          "Neutral",
+          "Bullish"
+        ]
+      }
+    },
+    "xgboost_return": {
+      "regression": {
+        "mae": 0.020333789735177764,
+        "rmse": 0.028483563859425774,
+        "r2": -0.004670660294820772
+      },
+      "financial": {
+        "per_ticker": {
+          "AAPL": {
+            "cumulative_return": 0.16803419513984608,
+            "annualized_return": 0.3050828966498451,
+            "annualized_volatility": 0.18982738958670228,
+            "sharpe_ratio": 1.4969366874995491,
+            "sortino_ratio": 2.490864052560244,
+            "max_drawdown": -0.08229198415117345,
+            "win_rate": 1.0,
+            "profit_factor": null,
+            "num_trades": 1,
+            "benchmark_cumulative_return": 0.16919860627177785
+          },
+          "AMZN": {
+            "cumulative_return": 0.3534784395918924,
+            "annualized_return": 0.6801387864394699,
+            "annualized_volatility": 0.23505407511380186,
+            "sharpe_ratio": 2.3216500101848037,
+            "sortino_ratio": 4.79552993185779,
+            "max_drawdown": -0.10847264437689996,
+            "win_rate": 1.0,
+            "profit_factor": null,
+            "num_trades": 1,
+            "benchmark_cumulative_return": 0.45754252039511134
+          },
+          "DIS": {
+            "cumulative_return": -0.014233654153010034,
+            "annualized_return": -0.024276342131992368,
+            "annualized_volatility": 0.17971950253383645,
+            "sharpe_ratio": -0.047417425823460306,
+            "sortino_ratio": -0.06471645085418158,
+            "max_drawdown": -0.12367778681855202,
+            "win_rate": 0.0,
+            "profit_factor": 0.0,
+            "num_trades": 2,
+            "benchmark_cumulative_return": 0.02819653824678925
+          },
+          "FB": {
+            "cumulative_return": 0.2995982154478911,
+            "annualized_return": 0.5671166509858696,
+            "annualized_volatility": 0.20240051754482724,
+            "sharpe_ratio": 2.322325257285517,
+            "sortino_ratio": 3.031065604673748,
+            "max_drawdown": -0.06315904496530611,
+            "win_rate": 1.0,
+            "profit_factor": null,
+            "num_trades": 1,
+            "benchmark_cumulative_return": 0.30088257090884674
+          },
+          "GOOGL": {
+            "cumulative_return": 0.23302240154730458,
+            "annualized_return": 0.43202377719943486,
+            "annualized_volatility": 0.147936146268801,
+            "sharpe_ratio": 2.502277511445,
+            "sortino_ratio": 3.881803268138727,
+            "max_drawdown": -0.07757109515080496,
+            "win_rate": 1.0,
+            "profit_factor": null,
+            "num_trades": 1,
+            "benchmark_cumulative_return": 0.285091249211493
+          },
+          "JNJ": {
+            "cumulative_return": 0.05252637567905283,
+            "annualized_return": 0.09172610057071662,
+            "annualized_volatility": 0.1378365811568165,
+            "sharpe_ratio": 0.7054677788242248,
+            "sortino_ratio": 0.9337024821557323,
+            "max_drawdown": -0.06716619414067726,
+            "win_rate": 1.0,
+            "profit_factor": null,
+            "num_trades": 1,
+            "benchmark_cumulative_return": 0.053574115876599215
+          },
+          "JPM": {
+            "cumulative_return": 0.2588063635223212,
+            "annualized_return": 0.4837412307455513,
+            "annualized_volatility": 0.14033482016512472,
+            "sharpe_ratio": 2.883261310971699,
+            "sortino_ratio": 5.419017016608863,
+            "max_drawdown": -0.059561795362688685,
+            "win_rate": 1.0,
+            "profit_factor": null,
+            "num_trades": 1,
+            "benchmark_cumulative_return": 0.2600539083557949
+          },
+          "KO": {
+            "cumulative_return": 0.059039622894318855,
+            "annualized_return": 0.10333309227458942,
+            "annualized_volatility": 0.0965830425689755,
+            "sharpe_ratio": 1.0664050559778373,
+            "sortino_ratio": 1.3865243251786725,
+            "max_drawdown": -0.04757840836355909,
+            "win_rate": 1.0,
+            "profit_factor": null,
+            "num_trades": 1,
+            "benchmark_cumulative_return": 0.06009830205540667
+          },
+          "MSFT": {
+            "cumulative_return": 0.3813551664878798,
+            "annualized_return": 0.73989671458913,
+            "annualized_volatility": 0.16354985219556312,
+            "sharpe_ratio": 3.4704226414454142,
+            "sortino_ratio": 5.804973511951565,
+            "max_drawdown": -0.0447690857681432,
+            "win_rate": 1.0,
+            "profit_factor": null,
+            "num_trades": 1,
+            "benchmark_cumulative_return": 0.3827196714097092
+          },
+          "NVDA": {
+            "cumulative_return": 0.6705896491672607,
+            "annualized_return": 1.4102522151518673,
+            "annualized_volatility": 0.3326701344317592,
+            "sharpe_ratio": 2.8136075379275542,
+            "sortino_ratio": 4.070450873867938,
+            "max_drawdown": -0.1418694690265484,
+            "win_rate": 1.0,
+            "profit_factor": null,
+            "num_trades": 2,
+            "benchmark_cumulative_return": 0.7261178497093232
+          },
+          "PG": {
+            "cumulative_return": -0.02252015667681173,
+            "annualized_return": -0.038294807475279025,
+            "annualized_volatility": 0.11650993959348281,
+            "sharpe_ratio": -0.27685868903355393,
+            "sortino_ratio": -0.32527115924923805,
+            "max_drawdown": -0.09057203389830659,
+            "win_rate": 0.0,
+            "profit_factor": 0.0,
+            "num_trades": 1,
+            "benchmark_cumulative_return": -0.021540916343743666
+          }
+        },
+        "aggregate": {
+          "cumulative_return_mean": 0.2217906016952678,
+          "annualized_return_mean": 0.43188548318174574,
+          "sharpe_ratio_mean": 1.7507343342458717,
+          "sortino_ratio_mean": 2.8567221324445327,
+          "max_drawdown_mean": -0.08242632200205997,
+          "win_rate_mean": 0.8181818181818182,
+          "profit_factor_mean": 0.0,
+          "num_trades_total": 13,
+          "benchmark_cumulative_return_mean": 0.24563040146337342,
+          "num_tickers_evaluated": 11
+        }
+      }
+    },
+    "xgboost_direction": {
+      "classification": {
+        "accuracy": 0.5392702535559678,
+        "precision_macro": 0.3472659455460872,
+        "recall_macro": 0.3389611405058451,
+        "f1_macro": 0.28972573418415953,
+        "roc_auc_ovr": 0.570879243571453,
+        "pr_auc_macro": 0.3878143437522615,
+        "confusion_matrix": [
+          [
+            30,
+            286,
+            5
+          ],
+          [
+            74,
+            835,
+            14
+          ],
+          [
+            54,
+            312,
+            7
+          ]
+        ],
+        "class_names": [
+          "Bearish",
+          "Neutral",
+          "Bullish"
+        ]
+      }
+    },
+    "lstm_return": {
+      "regression": {
+        "mae": 0.025818483904004097,
+        "rmse": 0.03535735704552707,
+        "r2": -0.3585563898086548
+      },
+      "financial": {
+        "per_ticker": {
+          "AAPL": {
+            "cumulative_return": 0.08370236192655534,
+            "annualized_return": 0.25883729905755093,
+            "annualized_volatility": 0.12825011657384103,
+            "sharpe_ratio": 1.8587036246944908,
+            "sortino_ratio": 2.1390049699605065,
+            "max_drawdown": -0.041661180165287526,
+            "win_rate": 0.625,
+            "profit_factor": 3.3001579763321987,
+            "num_trades": 8,
+            "benchmark_cumulative_return": 0.09559879848504704
+          },
+          "AMZN": {
+            "cumulative_return": 0.09741841908578186,
+            "annualized_return": 0.305002757123094,
+            "annualized_volatility": 0.072512972295848,
+            "sharpe_ratio": 3.7088290556536863,
+            "sortino_ratio": 3.612436514743384,
+            "max_drawdown": -0.02260275338180673,
+            "win_rate": 0.8888888888888888,
+            "profit_factor": 10.21791892600772,
+            "num_trades": 9,
+            "benchmark_cumulative_return": 0.48092904325591435
+          },
+          "DIS": {
+            "cumulative_return": 0.009701112843262472,
+            "annualized_return": 0.028032286884755342,
+            "annualized_volatility": 0.10950902382798344,
+            "sharpe_ratio": 0.306450113199197,
+            "sortino_ratio": 0.405384392948599,
+            "max_drawdown": -0.04680300173082519,
+            "win_rate": 0.5555555555555556,
+            "profit_factor": 1.3674739471073036,
+            "num_trades": 9,
+            "benchmark_cumulative_return": 0.12024738923248424
+          },
+          "FB": {
+            "cumulative_return": -0.0351580316430361,
+            "annualized_return": -0.09741488100865103,
+            "annualized_volatility": 0.12322920045326119,
+            "sharpe_ratio": -0.7701152049743837,
+            "sortino_ratio": -0.6384583474441058,
+            "max_drawdown": -0.09458491680990821,
+            "win_rate": 0.4,
+            "profit_factor": 0.7315918143883299,
+            "num_trades": 10,
+            "benchmark_cumulative_return": 0.17587235856525263
+          },
+          "GOOGL": {
+            "cumulative_return": 0.07351686986507167,
+            "annualized_return": 0.22525197352669224,
+            "annualized_volatility": 0.08066671265778479,
+            "sharpe_ratio": 2.5591360832849954,
+            "sortino_ratio": 2.150249411104272,
+            "max_drawdown": -0.0243201264174715,
+            "win_rate": 0.7142857142857143,
+            "profit_factor": 4.901715744284679,
+            "num_trades": 7,
+            "benchmark_cumulative_return": 0.2604567807729632
+          },
+          "JNJ": {
+            "cumulative_return": -0.0011143466011521719,
+            "annualized_return": -0.0031877709914699404,
+            "annualized_volatility": 0.04309188977193737,
+            "sharpe_ratio": -0.05280225400992326,
+            "sortino_ratio": -0.048604741386536345,
+            "max_drawdown": -0.020575897543565036,
+            "win_rate": 0.5,
+            "profit_factor": 1.3504211085867313,
+            "num_trades": 6,
+            "benchmark_cumulative_return": 0.06934473804796171
+          },
+          "JPM": {
+            "cumulative_return": 0.15750777687330397,
+            "annualized_return": 0.5202303560586892,
+            "annualized_volatility": 0.11118826842792692,
+            "sharpe_ratio": 3.824677313688461,
+            "sortino_ratio": 7.130342323432101,
+            "max_drawdown": -0.0217858812529218,
+            "win_rate": 0.9,
+            "profit_factor": 16.015452523605035,
+            "num_trades": 10,
+            "benchmark_cumulative_return": 0.24727854855923193
+          },
+          "KO": {
+            "cumulative_return": 0.03910290300306829,
+            "annualized_return": 0.11610242784123437,
+            "annualized_volatility": 0.0697504722972855,
+            "sharpe_ratio": 1.609600012698878,
+            "sortino_ratio": 1.6965349619091752,
+            "max_drawdown": -0.02497308934337994,
+            "win_rate": 0.375,
+            "profit_factor": 2.6796505304479834,
+            "num_trades": 8,
+            "benchmark_cumulative_return": 0.04125521176212543
+          },
+          "MSFT": {
+            "cumulative_return": 0.040309696705115305,
+            "annualized_return": 0.11981834730364982,
+            "annualized_volatility": 0.0741913763892813,
+            "sharpe_ratio": 1.5620048073517723,
+            "sortino_ratio": 2.31046171874111,
+            "max_drawdown": -0.025766648941004555,
+            "win_rate": 0.42857142857142855,
+            "profit_factor": 3.636571471649216,
+            "num_trades": 7,
+            "benchmark_cumulative_return": 0.28665028665028647
+          },
+          "NVDA": {
+            "cumulative_return": 0.23595750002547855,
+            "annualized_return": 0.8342759624660188,
+            "annualized_volatility": 0.25606404928913723,
+            "sharpe_ratio": 2.4997311121562427,
+            "sortino_ratio": 2.450969099965599,
+            "max_drawdown": -0.12767991274869206,
+            "win_rate": 0.8181818181818182,
+            "profit_factor": 3.293555939383211,
+            "num_trades": 11,
+            "benchmark_cumulative_return": 0.39858106536403826
+          },
+          "PG": {
+            "cumulative_return": 0.06334605233960278,
+            "annualized_return": 0.1923024069611241,
+            "annualized_volatility": 0.07292952063159615,
+            "sharpe_ratio": 2.4485836852293326,
+            "sortino_ratio": 3.2203852443206733,
+            "max_drawdown": -0.03160473609016701,
+            "win_rate": 0.6666666666666666,
+            "profit_factor": 26.430430736919952,
+            "num_trades": 3,
+            "benchmark_cumulative_return": -0.07339449541284515
+          }
+        },
+        "aggregate": {
+          "cumulative_return_mean": 0.0694809376748229,
+          "annualized_return_mean": 0.22720465138388068,
+          "sharpe_ratio_mean": 1.7777089408157047,
+          "sortino_ratio_mean": 2.2207914134813436,
+          "max_drawdown_mean": -0.043850740402275414,
+          "win_rate_mean": 0.6247409156500067,
+          "profit_factor_mean": 6.720449156246577,
+          "num_trades_total": 88,
+          "benchmark_cumulative_return_mean": 0.19116542957113272,
+          "num_tickers_evaluated": 11
+        }
+      },
+      "training_epochs_run": 8
+    },
+    "gru_return": {
+      "regression": {
+        "mae": 0.02772260271012783,
+        "rmse": 0.03793477050378824,
+        "r2": -0.5638425350189209
+      },
+      "financial": {
+        "per_ticker": {
+          "AAPL": {
+            "cumulative_return": 0.05744978117061428,
+            "annualized_return": 0.17346761089903406,
+            "annualized_volatility": 0.11565288383584223,
+            "sharpe_ratio": 1.4405814554747547,
+            "sortino_ratio": 1.776987741665442,
+            "max_drawdown": -0.04062641852019977,
+            "win_rate": 0.75,
+            "profit_factor": 3.827442285478542,
+            "num_trades": 8,
+            "benchmark_cumulative_return": 0.09559879848504704
+          },
+          "AMZN": {
+            "cumulative_return": 0.19345606478056343,
+            "annualized_return": 0.6593794308769259,
+            "annualized_volatility": 0.24579957774514022,
+            "sharpe_ratio": 2.1760144249941593,
+            "sortino_ratio": 5.509045011526997,
+            "max_drawdown": -0.0424424999752262,
+            "win_rate": 0.8,
+            "profit_factor": 146.26980495915666,
+            "num_trades": 5,
+            "benchmark_cumulative_return": 0.48092904325591435
+          },
+          "DIS": {
+            "cumulative_return": 0.04397651110589429,
+            "annualized_return": 0.13115845647999702,
+            "annualized_volatility": 0.14203575144123434,
+            "sharpe_ratio": 0.9374753241234265,
+            "sortino_ratio": 1.269949918110959,
+            "max_drawdown": -0.0552915078933045,
+            "win_rate": 0.375,
+            "profit_factor": 2.309465067229347,
+            "num_trades": 8,
+            "benchmark_cumulative_return": 0.12024738923248424
+          },
+          "FB": {
+            "cumulative_return": 0.0629638147793723,
+            "annualized_return": 0.19107548328546708,
+            "annualized_volatility": 0.1883685982675959,
+            "sharpe_ratio": 1.021937352156312,
+            "sortino_ratio": 1.1396915042869908,
+            "max_drawdown": -0.1102368278983884,
+            "win_rate": 0.6666666666666666,
+            "profit_factor": 3.105144967802122,
+            "num_trades": 6,
+            "benchmark_cumulative_return": 0.17587235856525263
+          },
+          "GOOGL": {
+            "cumulative_return": 0.09822855077281267,
+            "annualized_return": 0.30776340729456875,
+            "annualized_volatility": 0.11146969674892634,
+            "sharpe_ratio": 2.4627688544622144,
+            "sortino_ratio": 3.688537467043255,
+            "max_drawdown": -0.029278922074302383,
+            "win_rate": 0.5,
+            "profit_factor": 6.759203118531223,
+            "num_trades": 6,
+            "benchmark_cumulative_return": 0.2604567807729632
+          },
+          "JNJ": {
+            "cumulative_return": 0.06622258456171526,
+            "annualized_return": 0.20156202601909867,
+            "annualized_volatility": 0.09896882002523752,
+            "sharpe_ratio": 1.9045135559004713,
+            "sortino_ratio": 2.993543314167972,
+            "max_drawdown": -0.04732985284476399,
+            "win_rate": 0.4444444444444444,
+            "profit_factor": 5.881931327536384,
+            "num_trades": 9,
+            "benchmark_cumulative_return": 0.06934473804796171
+          },
+          "JPM": {
+            "cumulative_return": 0.09845797107701237,
+            "annualized_return": 0.3085458827192844,
+            "annualized_volatility": 0.12213079655167243,
+            "sharpe_ratio": 2.2630011976583213,
+            "sortino_ratio": 3.641165530603542,
+            "max_drawdown": -0.04270237412549516,
+            "win_rate": 0.6,
+            "profit_factor": 2.692944585356946,
+            "num_trades": 10,
+            "benchmark_cumulative_return": 0.24727854855923193
+          },
+          "KO": {
+            "cumulative_return": 0.0354965931788358,
+            "annualized_return": 0.10504584215233392,
+            "annualized_volatility": 0.08294795397701707,
+            "sharpe_ratio": 1.2455019048034384,
+            "sortino_ratio": 1.4097072091486487,
+            "max_drawdown": -0.04153489352730344,
+            "win_rate": 1.0,
+            "profit_factor": null,
+            "num_trades": 4,
+            "benchmark_cumulative_return": 0.04125521176212543
+          },
+          "MSFT": {
+            "cumulative_return": 0.14992045094049344,
+            "annualized_return": 0.4918683893444835,
+            "annualized_volatility": 0.1563788820194566,
+            "sharpe_ratio": 2.636084159713987,
+            "sortino_ratio": 3.3190955429743183,
+            "max_drawdown": -0.055121076628026566,
+            "win_rate": 0.7142857142857143,
+            "profit_factor": 7.8002047363642175,
+            "num_trades": 7,
+            "benchmark_cumulative_return": 0.28665028665028647
+          },
+          "NVDA": {
+            "cumulative_return": 0.06262819086716775,
+            "annualized_return": 0.18999885995819144,
+            "annualized_volatility": 0.24081586240636224,
+            "sharpe_ratio": 0.8430126623164726,
+            "sortino_ratio": 0.8082355737229352,
+            "max_drawdown": -0.16898368051041834,
+            "win_rate": 0.5,
+            "profit_factor": 1.637283477996877,
+            "num_trades": 6,
+            "benchmark_cumulative_return": 0.39858106536403826
+          },
+          "PG": {
+            "cumulative_return": -0.06819314814043853,
+            "annualized_return": -0.18311573486189614,
+            "annualized_volatility": 0.11018687256086308,
+            "sharpe_ratio": -1.779719089782274,
+            "sortino_ratio": -1.5380103315689904,
+            "max_drawdown": -0.07832795146484572,
+            "win_rate": 0.6666666666666666,
+            "profit_factor": 0.48777004880006475,
+            "num_trades": 9,
+            "benchmark_cumulative_return": -0.07339449541284515
+          }
+        },
+        "aggregate": {
+          "cumulative_return_mean": 0.07278248773582209,
+          "annualized_return_mean": 0.23424996856068078,
+          "sharpe_ratio_mean": 1.3773792547110257,
+          "sortino_ratio_mean": 2.1834498619710967,
+          "max_drawdown_mean": -0.0647160004965704,
+          "win_rate_mean": 0.637914862914863,
+          "profit_factor_mean": 18.077119457425237,
+          "num_trades_total": 78,
+          "benchmark_cumulative_return_mean": 0.19116542957113272,
+          "num_tickers_evaluated": 11
+        }
+      },
+      "training_epochs_run": 10
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "source": "plotly/datasets:all_stocks_5yr.csv (MIT license, real S&P 500 OHLCV)",
+  "environment": "research",
+  "tickers": [
+    "AAPL",
+    "AMZN",
+    "DIS",
+    "FB",
+    "GOOGL",
+    "JNJ",
+    "JPM",
+    "KO",
+    "MSFT",
+    "NVDA",
+    "PG"
+  ],
+  "start_date": "2013-02-08",
+  "end_date": "2018-02-07",
+  "retrieved_at": "2026-09-11T00:00:00+00:00",
+  "dataset_version": "research_sample_sp500_v1",
+  "notes": "See ml/data/sample_data/PROVENANCE.md for full extraction methodology.",
+  "extra": {}
+}

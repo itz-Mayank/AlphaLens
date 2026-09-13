@@ -1,0 +1,38 @@
+{
+  "xgboost_return": {
+    "record_id": "7d82ac4a-84c8-4315-9441-a24667451a62",
+    "model_type": "xgboost_return",
+    "promoted": true,
+    "reason": "Beat baseline 'previous_return_baseline' on metrics.regression.mae (0.02243006507255236 -> 0.020333789735177764); improved over current PRODUCTION (0.020333789735177764)",
+    "candidate_metric": 0.020333789735177764,
+    "baseline_metric": 0.02243006507255236,
+    "previous_production_metric": 0.020333789735177764
+  },
+  "xgboost_direction": {
+    "record_id": "ec0c4afd-f842-4f49-9a63-9f42d0638d76",
+    "model_type": "xgboost_direction",
+    "promoted": true,
+    "reason": "Beat baseline 'majority_class_baseline' on metrics.classification.f1_macro (0.24225721784776902 -> 0.28972573418415953); improved over current PRODUCTION (0.28972573418415953)",
+    "candidate_metric": 0.28972573418415953,
+    "baseline_metric": 0.24225721784776902,
+    "previous_production_metric": 0.28972573418415953
+  },
+  "lstm_return": {
+    "record_id": "27e1cff7-8f97-41b5-85a9-7c287b24b8fd",
+    "model_type": "lstm_return",
+    "promoted": false,
+    "reason": "Did not beat baseline 'previous_return_baseline' on metrics.regression.mae: candidate=0.025818483904004097, baseline=0.02243006507255236.",
+    "candidate_metric": 0.025818483904004097,
+    "baseline_metric": 0.02243006507255236,
+    "previous_production_metric": null
+  },
+  "gru_return": {
+    "record_id": "0d6e6c44-8a04-4888-8744-1863de5a19da",
+    "model_type": "gru_return",
+    "promoted": false,
+    "reason": "Did not beat baseline 'previous_return_baseline' on metrics.regression.mae: candidate=0.02772260271012783, baseline=0.02243006507255236.",
+    "candidate_metric": 0.02772260271012783,
+    "baseline_metric": 0.02243006507255236,
+    "previous_production_metric": null
+  }
+}
