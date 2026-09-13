@@ -1,6 +1,33 @@
 # Deployment, secrets, retention, and disaster recovery (Phase 10)
 
-This document is deliberately a **target architecture and operational policy**, not a record of
+## Actual current deployment: Render
+
+Unlike the AWS section below (a documented target architecture, not a real deployment), this
+project **is** actually deployed via [Render](https://render.com) — see `render.yaml` at the repo
+root, Render's Blueprint format. It provisions: a managed Postgres database, a managed Key Value
+(Redis) instance, the backend API as a Docker web service, one Celery worker and one Celery beat
+background worker (same image as the backend, different start command — `backend/Dockerfile.render`,
+built from the repo root so it can bundle the sibling `ml/` package into the image, since Render
+has no equivalent of docker-compose's dev-time bind mount), and the frontend as a static site build.
+
+This mirrors the AWS target architecture's shape (backend/worker/beat, managed Postgres, managed
+Redis) at a much smaller scale and cost, appropriate for a personal/demo deployment — it is not a
+replacement for that document's AWS design if this project were ever run at real production scale;
+see "What this deliberately does not use" below for why nothing fancier than either is justified yet.
+
+Two things to know about this specific deployment:
+- **Demo Mode by default.** `render.yaml` ships with `DEMO_MODE=true` and every real data-provider
+  key (`TWELVE_DATA_API_KEY`, `FRED_API_KEY`, `GROQ_API_KEY`, etc.) left unset (`sync: false` —
+  set only in the Render dashboard, never in this file). The deployed instance is fully functional
+  on synthetic demo data with zero credentials; adding a real key later is additive, not a
+  redeploy-from-scratch.
+- **Render's free Postgres plan expires 30 days after creation** (then a 14-day grace period before
+  Render deletes it, data included) — fine for an initial trial, not for anything meant to persist;
+  upgrade the database's plan in the Render dashboard before relying on this deployment long-term.
+
+## AWS target architecture
+
+This section below is deliberately a **target architecture and operational policy**, not a record of
 an actual deployment — no AWS resources have been created, and nothing here should be read as "this
 is running in AWS." Where a step requires infrastructure or credentials this project doesn't have
 (a real AWS account, an ACM certificate, a real secrets-manager instance), that is stated plainly

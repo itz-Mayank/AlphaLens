@@ -1,0 +1,68 @@
+# Render deployment image — used by render.yaml's backend/worker/beat
+# services (same image, different startCommand per service). Distinct from
+# backend/Dockerfile (which infra/docker-compose.yml uses for local dev)
+# because Render builds a single Docker image per repo checkout with no
+# sibling bind mount available — the `ml` package (a separate top-level
+# directory, not published to a package index — see ml/pyproject.toml) has
+# to be copied into this image at build time instead of the dev setup's
+# `pip install -e /ml` against a live bind mount. Built with the REPO ROOT
+# as its context (render.yaml: `dockerContext: .`) specifically so it can
+# COPY both backend/ and ../ml.
+
+FROM python:3.11-slim AS deps
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
+
+WORKDIR /app
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libpq-dev gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY backend/requirements.txt ./
+RUN pip install --user -r requirements.txt
+
+# The ml/ package (feature engineering, inference, SHAP explainability —
+# see ml/pyproject.toml) plus its committed ml/experiments/ registry and
+# trained model artifacts, which app.services.forecast_service /
+# ml.inference.serving read at runtime via ML_REGISTRY_PATH.
+COPY ml/ /ml/
+RUN pip install --user -e /ml
+
+FROM python:3.11-slim AS production
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PATH=/home/appuser/.local/bin:$PATH
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl libpq5 \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd --create-home --uid 1000 --shell /usr/sbin/nologin appuser
+
+WORKDIR /app
+COPY --from=deps /root/.local /home/appuser/.local
+COPY --from=deps /ml /ml
+COPY backend/ .
+COPY backend/render-entrypoint.sh /entrypoint.sh
+
+RUN chown -R appuser:appuser /home/appuser/.local /app /ml \
+    && chmod +x /entrypoint.sh
+
+USER appuser
+
+EXPOSE 8000
+
+# Render sets $PORT at runtime; render.yaml's startCommand for the web
+# service binds uvicorn to it. This HEALTHCHECK is Docker-level (Render's
+# own healthCheckPath in render.yaml is what Render actually polls for
+# routing/zero-downtime deploys) and only matters for the web service —
+# harmless no-op probe on worker/beat, which expose no HTTP server.
+HEALTHCHECK --interval=15s --timeout=5s --start-period=15s --retries=5 \
+    CMD curl -f "http://localhost:${PORT:-8000}/health" || exit 1
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]

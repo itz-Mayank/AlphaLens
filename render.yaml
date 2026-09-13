@@ -1,0 +1,210 @@
+# Render Blueprint — see docs/deployment.md for the target AWS architecture
+# this mirrors at smaller scale, and https://render.com/docs/blueprint-spec
+# for the schema. Deploy via Render's dashboard: New > Blueprint > select
+# this repo. Render will show every resource below for review before
+# creating anything — nothing is provisioned by committing this file alone.
+#
+# Plan names (`plan:` below) are Render's current tier names as of this
+# writing; if Render rejects one at blueprint-sync time (pricing/tier names
+# do change), just pick the closest equivalent in the dashboard's picker —
+# it will show you what's actually available on this account.
+#
+# Secrets (`sync: false`) are never stored in this file or in git — set
+# their real values once in the Render dashboard after the first sync.
+
+databases:
+  # NOTE: Render's free Postgres plan expires 30 days after creation (then
+  # a 14-day grace period before Render deletes the database and all its
+  # data) — fine for an initial trial deploy, but switch `plan:` to a paid
+  # tier in the Render dashboard before relying on this for anything real.
+  - name: alphalens-db
+    plan: free
+    postgresMajorVersion: "16"
+
+services:
+  # --- Redis: Celery broker/result-backend + app cache (app/core/cache.py) ---
+  - type: keyvalue
+    name: alphalens-redis
+    plan: free
+    ipAllowList: [] # no public internet access; Render services reach it over the private network
+
+  # --- Backend API (FastAPI/uvicorn) ---
+  - type: web
+    name: alphalens-backend
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./backend/Dockerfile.render
+    dockerContext: .
+    healthCheckPath: /ready
+    startCommand: "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: DEMO_MODE
+        value: "true"
+      - key: DATA_ENVIRONMENT
+        value: demo
+      - key: MARKET_DATA_PROVIDER
+        value: demo
+      - key: NEWS_PROVIDER
+        value: demo
+      - key: FUNDAMENTALS_PROVIDER
+        value: none
+      - key: MACRO_PROVIDER
+        value: none
+      - key: DATABASE_URL
+        fromDatabase:
+          name: alphalens-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: keyvalue
+          name: alphalens-redis
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: COOKIE_SECURE
+        value: "true"
+      # Update these two to the frontend's actual onrender.com URL after
+      # first deploy if Render assigned a different hostname than expected
+      # (e.g. because "alphalens-frontend" was already taken).
+      - key: CORS_ORIGINS
+        value: https://alphalens-frontend.onrender.com
+      - key: FRONTEND_BASE_URL
+        value: https://alphalens-frontend.onrender.com
+      - key: ML_REGISTRY_PATH
+        value: /ml/experiments/registry.json
+      - key: SEC_EDGAR_USER_AGENT
+        value: "AlphaLens research alphalens-dev@example.com" # replace with a real contact address before relying on SEC EDGAR ingestion
+      - key: LLM_PROVIDER
+        value: groq
+      - key: LLM_MODEL
+        value: claude-haiku-4-5-20251001
+      - key: GROQ_LLM_MODEL
+        value: openai/gpt-oss-20b
+      # Secrets — set the real values in the Render dashboard (Environment
+      # tab) after the first sync. Leaving these unset keeps the research
+      # agent/real-data providers cleanly unavailable rather than broken.
+      - key: GROQ_API_KEY
+        sync: false
+      - key: LLM_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: TWELVE_DATA_API_KEY
+        sync: false
+      - key: FRED_API_KEY
+        sync: false
+
+  # --- Celery worker (ingestion, alerts, predictions, retraining — see
+  # backend/app/workers/tasks/) ---
+  - type: worker
+    name: alphalens-worker
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./backend/Dockerfile.render
+    dockerContext: .
+    startCommand: "celery -A app.workers.celery_app worker --loglevel=info --concurrency=2"
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: DEMO_MODE
+        value: "true"
+      - key: DATA_ENVIRONMENT
+        value: demo
+      - key: MARKET_DATA_PROVIDER
+        value: demo
+      - key: NEWS_PROVIDER
+        value: demo
+      - key: FUNDAMENTALS_PROVIDER
+        value: none
+      - key: MACRO_PROVIDER
+        value: none
+      - key: DATABASE_URL
+        fromDatabase:
+          name: alphalens-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: keyvalue
+          name: alphalens-redis
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      # COOKIE_SECURE/CORS_ORIGINS are only meaningful for the web service,
+      # but validate_production_config() (app/core/config.py) runs for
+      # every process at import time — including this worker, since
+      # app/workers/celery_app.py calls get_settings() at module load — and
+      # refuses to start under ENVIRONMENT=production with either left at
+      # its insecure dev default. Set here purely to satisfy that check.
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: CORS_ORIGINS
+        value: https://alphalens-frontend.onrender.com
+      - key: FRONTEND_BASE_URL
+        value: https://alphalens-frontend.onrender.com
+      - key: ML_REGISTRY_PATH
+        value: /ml/experiments/registry.json
+      - key: SEC_EDGAR_USER_AGENT
+        value: "AlphaLens research alphalens-dev@example.com"
+      - key: LLM_PROVIDER
+        value: groq
+      - key: GROQ_LLM_MODEL
+        value: openai/gpt-oss-20b
+      - key: GROQ_API_KEY
+        sync: false
+      - key: TWELVE_DATA_API_KEY
+        sync: false
+      - key: FRED_API_KEY
+        sync: false
+
+  # --- Celery beat (single scheduler instance — see
+  # backend/app/workers/celery_app.py's beat_schedule; running more than
+  # one would double-fire the alert/prediction-evaluation schedule) ---
+  - type: worker
+    name: alphalens-beat
+    runtime: docker
+    plan: starter
+    numInstances: 1
+    dockerfilePath: ./backend/Dockerfile.render
+    dockerContext: .
+    startCommand: "celery -A app.workers.celery_app beat --loglevel=info"
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: DEMO_MODE
+        value: "true"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: alphalens-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: keyvalue
+          name: alphalens-redis
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: CORS_ORIGINS
+        value: https://alphalens-frontend.onrender.com
+
+  # --- Frontend (static Vite build — no Node server needed in production) ---
+  - type: web
+    name: alphalens-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: "npm ci && npm run build"
+    staticPublishPath: dist
+    envVars:
+      # Baked into the static build at build time — update if the backend's
+      # actual onrender.com hostname differs from this guess.
+      - key: VITE_API_BASE_URL
+        value: https://alphalens-backend.onrender.com/api/v1
+      - key: VITE_WS_BASE_URL
+        value: wss://alphalens-backend.onrender.com
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

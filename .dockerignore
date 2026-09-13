@@ -1,0 +1,45 @@
+# Root-level .dockerignore — used when a Docker build's context is the
+# repo root (backend/Dockerfile.render, built with dockerContext: . so it
+# can COPY both backend/ and the sibling ml/ package — see render.yaml).
+# backend/.dockerignore and frontend/.dockerignore still apply to their
+# own directories for the docker-compose (context: ../backend etc.) builds.
+
+.git/
+.github/
+
+**/__pycache__/
+**/*.py[cod]
+**/*.egg-info/
+**/.eggs/
+.venv/
+**/.venv/
+**/.venv/**
+venv/
+**/venv/
+**/venv/**
+**/.mypy_cache/
+**/.ruff_cache/
+**/.pytest_cache/
+**/htmlcov/
+**/.coverage
+**/.coverage.*
+
+node_modules/
+**/node_modules/
+frontend/dist/
+frontend/coverage/
+**/playwright-report/
+**/test-results/
+**/*.tsbuildinfo
+frontend/_screenshots/
+
+.env
+.env.*
+!backend/.env.test
+
+ml/tests/
+ml/requirements-dev.txt
+backend/tests/
+
+*.log
+logs/
